@@ -204,12 +204,22 @@
     <div id="login-modal" class="modal">
         <div class="modal-content login-modal-content">
             <button class="close-modal"><i data-lucide="x"></i></button>
-            <h2>Xush kelibsiz!</h2>
-            <p>Tizimga kirish yoki ro'yxatdan o'tish uchun quyidagi tugmani bosing.</p>
-            <button id="google-signin" class="btn btn-outline google-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                <span>Google orqali kirish</span>
-            </button>
+            <h2>Tizimga kirish</h2>
+            <p>Gmail va parolingizni kiriting.</p>
+            <div class="login-form">
+                <div class="input-group">
+                    <i data-lucide="mail"></i>
+                    <input type="email" id="login-email" placeholder="Gmail manzilingiz">
+                </div>
+                <div class="input-group">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="login-pass" placeholder="Parolingiz">
+                </div>
+                <button id="google-signin" class="btn btn-primary google-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                    <span>Google orqali kirish</span>
+                </button>
+            </div>
             <div id="user-info" style="display: none;">
                 <p>Muvaffaqiyatli kirdingiz!</p>
             </div>
