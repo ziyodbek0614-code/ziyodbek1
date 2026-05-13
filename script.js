@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Modal Logic ---
     const loginModal = document.getElementById('login-modal');
-    const subjectModal = document.getElementById('subject-modal');
+    const contentModal = document.getElementById('content-modal');
     const openLoginBtn = document.getElementById('open-login');
     const closeBtns = document.querySelectorAll('.close-modal');
 
@@ -115,13 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             loginModal.style.display = 'none';
-            subjectModal.style.display = 'none';
+            contentModal.style.display = 'none';
         });
     });
 
     window.addEventListener('click', (e) => {
         if (e.target === loginModal) loginModal.style.display = 'none';
-        if (e.target === subjectModal) subjectModal.style.display = 'none';
+        if (e.target === contentModal) contentModal.style.display = 'none';
     });
 
     // --- Google Sign-In Simulation ---
@@ -153,128 +153,163 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewImg = imagePreview.querySelector('img');
     const removeImgBtn = imagePreview.querySelector('.remove-img');
 
-    imageUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                previewImg.src = event.target.result;
-                imagePreview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    if (imageUpload) {
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    previewImg.src = event.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
-    removeImgBtn.addEventListener('click', () => {
-        imageUpload.value = '';
-        imagePreview.style.display = 'none';
-        previewImg.src = '';
-    });
+    if (removeImgBtn) {
+        removeImgBtn.addEventListener('click', () => {
+            imageUpload.value = '';
+            imagePreview.style.display = 'none';
+            previewImg.src = '';
+        });
+    }
 
-    // --- Subject Content Data ---
-    const subjectData = {
+    // --- Content Data (Features & Subjects) ---
+    const contentData = {
+        // Subjects (Old data)
         math: {
             title: "Matematika fanidan misollar",
-            content: `
-                <div class="content-list">
-                    <div class="content-item">
-                        <h4>1-misol: Tenglama</h4>
-                        <p>2x + 15 = 45 tenglamani yeching.<br><b>Yechimi:</b> 2x = 30, x = 15.</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>2-misol: Geometriya</h4>
-                        <p>To'g'ri to'rtburchakning tomonlari 5 va 8 sm. Uning yuzini toping.<br><b>Yechimi:</b> S = 5 * 8 = 40 sm².</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>3-misol: Foizlar</h4>
-                        <p>500 ning 20 foizini toping.<br><b>Yechimi:</b> 500 * 0.2 = 100.</p>
-                    </div>
-                </div>
-            `
+            content: `<div class="content-list">
+                <div class="content-item"><h4>1-misol: Tenglama</h4><p>2x + 15 = 45 tenglamani yeching.<br><b>Yechimi:</b> 2x = 30, x = 15.</p></div>
+                <div class="content-item"><h4>2-misol: Geometriya</h4><p>To'g'ri to'rtburchakning tomonlari 5 va 8 sm. Uning yuzini toping.<br><b>Yechimi:</b> S = 5 * 8 = 40 sm².</p></div>
+            </div>`
         },
         physics: {
             title: "Fizika fanidan formulalar",
+            content: `<div class="content-list">
+                <div class="content-item"><h4>Nyutonning 2-qonuni</h4><p>F = m * a (Kuch = massa * tezlanish)</p></div>
+            </div>`
+        },
+        english: { title: "Ingliz tili darslari", content: `<div class="content-list"><div class="content-item"><h4>Lesson 1: Present Simple</h4><p>I play football. He plays tennis.</p></div></div>` },
+        native: { title: "Ona tili - Insholar", content: `<div class="content-list"><div class="content-item"><h4>Mavzu: Mening Vatanim</h4><p>O'zbekiston - mening muqaddas vatanim...</p></div></div>` },
+        info: { title: "Informatika - Loyihalar", content: `<div class="content-list"><div class="content-item"><h4>Loyiha 1: Shaxsiy veb-sayt</h4><p>HTML va CSS yordamida sayt yaratish.</p></div></div>` },
+        
+        // Features (New data)
+        "math-examples": {
+            title: "Matematik misollar to'plami",
             content: `
                 <div class="content-list">
-                    <div class="content-item">
-                        <h4>Nyutonning 2-qonuni</h4>
-                        <p>F = m * a (Kuch = massa * tezlanish)</p>
+                    <div class="content-item"><h4>Ko'paytirish jadvali</h4><p>7 * 8 = 56<br>9 * 9 = 81</p></div>
+                    <div class="content-item"><h4>Kvadrat tenglamalar</h4><p>ax² + bx + c = 0 formulasini yechish bosqichlari...</p></div>
+                    <div class="content-item"><h4>Logarifm</h4><p>logₐb = c bo'lsa, aᶜ = b</p></div>
+                </div>
+            `
+        },
+        "essay-guide": {
+            title: "Insho yozishni o'rganamiz",
+            content: `
+                <div class="content-list">
+                    <div class="content-item"><h4>1. Kirish qismi</h4><p>Mavzuga umumiy tushuncha beriladi va o'quvchi diqqati tortiladi.</p></div>
+                    <div class="content-item"><h4>2. Asosiy qism</h4><p>Fikrlar dalillar bilan isbotlanadi, tahlil qilinadi.</p></div>
+                    <div class="content-item"><h4>3. Xulosa</h4><p>Yozilgan fikrlar umumlashtiriladi va yakuniy xulosa beriladi.</p></div>
+                </div>
+            `
+        },
+        "formula-explain": {
+            title: "Formula va qoidalar tushuntirilishi",
+            content: `
+                <div class="content-list">
+                    <div class="content-item"><h4>Pifagor teoremasi</h4><p>a² + b² = c² (To'g'ri burchakli uchburchakda gipotenuza kvadrati katetlar kvadratlari yig'indisiga teng)</p></div>
+                    <div class="content-item"><h4>Energiya saqlanish qonuni</h4><p>E = m * c² (Massa va energiya bog'liqligi)</p></div>
+                    <div class="content-item"><h4>Omi qonuni</h4><p>I = U / R (Tok kuchi kuchlanishga to'g'ri, qarshilikka teskari mutanosib)</p></div>
+                </div>
+            `
+        },
+        "ai-chat": {
+            title: "AI Yordamchi Chat",
+            content: `
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-box">
+                        <div class="msg ai">Salom! Men Study Helper AI yordamchisiman. Sizga qanday yordam bera olaman?</div>
                     </div>
-                    <div class="content-item">
-                        <h4>Tezlik formulasi</h4>
-                        <p>v = s / t (Tezlik = masofa / vaqt)</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>Zichlik</h4>
-                        <p>ρ = m / V (Zichlik = massa / hajm)</p>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Xabaringizni yozing...">
+                        <button class="btn btn-primary" onclick="sendMessage()">Yuborish</button>
                     </div>
                 </div>
             `
         },
-        english: {
-            title: "Ingliz tili darslari",
+        "tests": {
+            title: "Testlar bo'limi",
             content: `
-                <div class="content-list">
-                    <div class="content-item">
-                        <h4>Lesson 1: Present Simple</h4>
-                        <p>I play football. He plays tennis. (Kundalik ish-harakatlar uchun)</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>Lesson 2: Vocabulary</h4>
-                        <p>Education - Ta'lim<br>Knowledge - Bilim<br>Success - Muvaffaqiyat</p>
-                    </div>
+                <p>Iltimos, sinfingizni tanlang:</p>
+                <div class="class-grid">
+                    ${[1,2,3,4,5,6,7,8,9,10,11].map(n => `<button class="class-btn" onclick="startTest(${n})">${n}-sinf</button>`).join('')}
                 </div>
-            `
-        },
-        native: {
-            title: "Ona tili va adabiyot - Insholar",
-            content: `
-                <div class="content-list">
-                    <div class="content-item">
-                        <h4>Mavzu: Mening Vatanim</h4>
-                        <p>O'zbekiston - mening muqaddas vatanim. Uning boy tarixi va madaniyati...</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>Mavzu: Kitob - bilim manbai</h4>
-                        <p>Kitob mutolaasi inson ma'naviyatini yuksaltiradi. Har bir yosh kitob o'qishi shart...</p>
-                    </div>
-                </div>
-            `
-        },
-        info: {
-            title: "Informatika - Loyihalar",
-            content: `
-                <div class="content-list">
-                    <div class="content-item">
-                        <h4>Loyiha 1: Shaxsiy veb-sayt</h4>
-                        <p>HTML va CSS yordamida o'zingiz haqingizda sayt yaratish.</p>
-                    </div>
-                    <div class="content-item">
-                        <h4>Loyiha 2: Kalkulyator</h4>
-                        <p>JavaScript yordamida oddiy arifmetik kalkulyator dasturini tuzish.</p>
-                    </div>
-                </div>
+                <div id="test-area" class="test-container"></div>
             `
         }
     };
 
-    // --- Subject Card Click Handling ---
-    const subjectCards = document.querySelectorAll('.subject-card');
-    const modalBody = document.getElementById('modal-body');
+    // --- Interactive Handling ---
+    const allCards = document.querySelectorAll('.feature-card, .subject-card');
+    const contentBody = document.getElementById('content-modal-body');
 
-    subjectCards.forEach(card => {
+    allCards.forEach(card => {
         card.addEventListener('click', () => {
-            const subject = card.getAttribute('data-subject');
-            if (subjectData[subject]) {
-                modalBody.innerHTML = `
-                    <h2 style="margin-bottom: 20px; color: var(--primary);">${subjectData[subject].title}</h2>
-                    ${subjectData[subject].content}
+            const key = card.getAttribute('data-feature') || card.getAttribute('data-subject');
+            if (contentData[key]) {
+                contentBody.innerHTML = `
+                    <h2 style="margin-bottom: 20px; color: var(--primary);">${contentData[key].title}</h2>
+                    ${contentData[key].content}
                 `;
-                subjectModal.style.display = 'flex';
+                contentModal.style.display = 'flex';
                 lucide.createIcons();
             }
         });
     });
+
+    // --- Global Helper Functions for Content ---
+    window.sendMessage = () => {
+        const input = document.getElementById('chat-input');
+        const box = document.getElementById('chat-box');
+        if (!input.value) return;
+
+        box.innerHTML += `<div class="msg user">${input.value}</div>`;
+        const userMsg = input.value.toLowerCase();
+        input.value = '';
+
+        setTimeout(() => {
+            let response = "Kechirasiz, buni tushunmadim. Savolingizni boshqacharoq bering.";
+            if (userMsg.includes('salom')) response = "Assalomu alaykum! Savolingizga javob berishga tayyorman.";
+            if (userMsg.includes('matematika')) response = "Matematika fanidan misol yechishda yordam berishim mumkin.";
+            
+            box.innerHTML += `<div class="msg ai">${response}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 1000);
+    };
+
+    window.startTest = (grade) => {
+        const testArea = document.getElementById('test-area');
+        testArea.innerHTML = `
+            <h3>${grade}-sinf uchun testlar</h3>
+            <div class="test-item">
+                <p>1. ${grade}-sinf dasturi bo'yicha eng muhim fan qaysi?</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="alert('To\\'g\\'ri!')">Barcha fanlar</button>
+                    <button class="option-btn" onclick="alert('Xato!')">Faqat bittasi</button>
+                </div>
+            </div>
+            <div class="test-item">
+                <p>2. 100 + ${grade * 10} nechaga teng?</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="alert('To\\'g\\'ri!')">${100 + grade * 10}</button>
+                    <button class="option-btn" onclick="alert('Xato!')">${100 + grade * 5}</button>
+                </div>
+            </div>
+        `;
+    };
 
     // Navbar scroll effect
     window.addEventListener('scroll', () => {
