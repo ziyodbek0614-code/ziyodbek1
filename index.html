@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Helper Uz - O‘quvchilar uchun aqlli yordamchi</title>
+    <meta name="description" content="Matematika, insho, formulalar va AI yordamchi bir joyda. O'quvchilar uchun eng yaxshi platforma.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i data-lucide="graduation-cap"></i>
+                <span>Study Helper Uz</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Imkoniyatlar</a></li>
+                <li><a href="#solver">AI Solver</a></li>
+                <li><a href="#subjects">Fanlar</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" title="Mavzuni o'zgartirish">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display: none;"></i>
+                </button>
+                <button class="btn btn-primary login-btn" id="open-login">Kirish</button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="reveal">O‘quvchilar uchun <span class="gradient-text">aqlli yordamchi</span></h1>
+                    <p class="reveal">Matematika, insho, formulalar va AI yordamchi bir joyda. O'qishni oson va qiziqarli qiling!</p>
+                    <div class="hero-btns reveal">
+                        <button class="btn btn-primary" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Boshlash</button>
+                        <button class="btn btn-outline" onclick="document.getElementById('subjects').scrollIntoView({behavior: 'smooth'})">Batafsil</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title reveal">Bizning imkoniyatlarimiz</h2>
+                <div class="features-grid">
+                    <div class="feature-card reveal">
+                        <div class="icon-wrapper"><i data-lucide="calculator"></i></div>
+                        <h3>Matematik misollar</h3>
+                        <p>Murakkab matematik misollarni bosqichma-bosqich yechish.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrapper"><i data-lucide="pen-tool"></i></div>
+                        <h3>Insho yozish</h3>
+                        <p>Xar xil mavzularda sifatli va kreativ insholar tayyorlash.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrapper"><i data-lucide="sigma"></i></div>
+                        <h3>Formula tushuntirish</h3>
+                        <p>Fizika va matematika formulalarini tubdan tushunish.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrapper"><i data-lucide="message-square"></i></div>
+                        <h3>AI yordamchi chat</h3>
+                        <p>Sizni qiziqtirgan savollarga 24/7 javob olish.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrapper"><i data-lucide="clipboard-check"></i></div>
+                        <h3>Testlar ishlash</h3>
+                        <p>Bilimingizni sinash uchun maxsus testlar to'plami.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Solver Section -->
+        <section id="solver" class="solver">
+            <div class="container">
+                <div class="solver-card reveal">
+                    <div class="solver-header">
+                        <h2>AI Solver</h2>
+                        <p>Misol yoki vazifani yozing, AI uni darhol yechib beradi.</p>
+                    </div>
+                    <div class="solver-input-group">
+                        <input type="text" id="solver-input" placeholder="Masalan: 528-misolni ishlash">
+                        <button id="solve-btn" class="btn btn-primary">
+                            <span>Yechish</span>
+                            <i data-lucide="sparkles"></i>
+                        </button>
+                    </div>
+                    <div class="solver-actions">
+                        <input type="file" id="image-upload" accept="image/*" hidden>
+                        <button class="btn btn-secondary" onclick="document.getElementById('image-upload').click()">
+                            <i data-lucide="camera"></i>
+                            <span>Rasmga olish / Yuklash</span>
+                        </button>
+                        <div id="image-preview" class="image-preview" style="display: none;">
+                            <img src="" alt="Yuklangan rasm">
+                            <button class="remove-img"><i data-lucide="x"></i></button>
+                        </div>
+                    </div>
+                    <div id="solver-result" class="solver-result" style="display: none;">
+                        <div class="result-header">
+                            <i data-lucide="check-circle"></i>
+                            <span>Natija tayyor:</span>
+                        </div>
+                        <div class="result-content" id="result-text"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subjects Section -->
+        <section id="subjects" class="subjects">
+            <div class="container">
+                <h2 class="section-title reveal">Fanlar yo'nalishi</h2>
+                <div class="subjects-grid">
+                    <div class="subject-card reveal" data-subject="math">
+                        <div class="subject-icon math"><i data-lucide="variable"></i></div>
+                        <h3>Matematika</h3>
+                        <span class="badge">1200+ misollar</span>
+                    </div>
+                    <div class="subject-card reveal" data-subject="physics">
+                        <div class="subject-icon physics"><i data-lucide="atom"></i></div>
+                        <h3>Fizika</h3>
+                        <span class="badge">800+ formulalar</span>
+                    </div>
+                    <div class="subject-card reveal" data-subject="english">
+                        <div class="subject-icon english"><i data-lucide="languages"></i></div>
+                        <h3>Ingliz tili</h3>
+                        <span class="badge">500+ darslar</span>
+                    </div>
+                    <div class="subject-card reveal" data-subject="native">
+                        <div class="subject-icon native"><i data-lucide="book-open"></i></div>
+                        <h3>Ona tili</h3>
+                        <span class="badge">300+ insholar</span>
+                    </div>
+                    <div class="subject-card reveal" data-subject="info">
+                        <div class="subject-icon info"><i data-lucide="cpu"></i></div>
+                        <h3>Informatika</h3>
+                        <span class="badge">400+ loyihalar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Study Helper Uz</span>
+                    </div>
+                    <p>O'zbekistondagi o'quvchilar uchun eng aqlli ta'lim platformasi.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Sahifalar</h4>
+                    <ul>
+                        <li><a href="#">Asosiy</a></li>
+                        <li><a href="#features">Imkoniyatlar</a></li>
+                        <li><a href="#solver">AI Solver</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Biz bilan bog'laning</h4>
+                    <div class="social-icons">
+                        <a href="https://t.me/studyhelperuz" target="_blank" class="social-link tg" title="Telegram">
+                            <i data-lucide="send"></i>
+                        </a>
+                        <a href="https://youtube.com/@studyhelperuz" target="_blank" class="social-link yt" title="YouTube">
+                            <i data-lucide="youtube"></i>
+                        </a>
+                    </div>
+                    <div class="contact-info">
+                        <p><i data-lucide="mail"></i> info@studyhelper.uz</p>
+                        <p><i data-lucide="phone"></i> +998 90 123 45 67</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Study Helper Uz. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content login-modal-content">
+            <button class="close-modal"><i data-lucide="x"></i></button>
+            <h2>Xush kelibsiz!</h2>
+            <p>Tizimga kirish yoki ro'yxatdan o'tish uchun quyidagi tugmani bosing.</p>
+            <button id="google-signin" class="btn btn-outline google-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                <span>Google orqali kirish</span>
+            </button>
+            <div id="user-info" style="display: none;">
+                <p>Muvaffaqiyatli kirdingiz!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject Content Modal -->
+    <div id="subject-modal" class="modal">
+        <div class="modal-content subject-modal-content">
+            <button class="close-modal"><i data-lucide="x"></i></button>
+            <div id="modal-body">
+                <!-- Content will be injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

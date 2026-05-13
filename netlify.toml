@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+
+# SPA redirects (if needed in the future)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[template.environment]
+  NODE_VERSION = "20"
